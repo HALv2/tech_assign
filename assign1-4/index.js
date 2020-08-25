@@ -7,7 +7,7 @@ let tasks = [
 function show() {
   console.log("========================", "\n", "現在持っているタスクの一覧", "\n", "========================");
   tasks.forEach(function (task, index) {
-    console.log(`${index}:[内容]${task.description},[ジャンル]${task.category}`);
+    console.log(`${index} : [内容]${task.description},[ジャンル]${task.category}`);
   })
 }
 
