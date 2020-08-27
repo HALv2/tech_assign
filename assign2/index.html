@@ -1,12 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Assign2</title>
   <script src="script.js"></script>
 </head>
+
 <body>
-  <h1 class="main-heading">FizzBuzz</h1>
+  <h1 class="main-heading">FizzBuzz問題</h1>
+  <form id="fizzBuzzForm" onsubmit="myCalc()">
+    <label for="fizzBuzzForm">FizzNum: 	&nbsp; 	&nbsp;</label>
+    <input type="text" name="fizz_input" id="fizz" size="23" placeholder="整数値を入力してください">
+    <br>
+    <label for="fizzBuzzForm">BuzzNum:	&nbsp;</label>
+    <input type="text" name="buzz_input" id="buzz" size="23" placeholder="整数値を入力してください">
+    <br>
+    <button type="submit">実行</button>
+  </form>
+  <div class="result">
+    <p>【出力】</p>
+  </div>
 </body>
 </html>
