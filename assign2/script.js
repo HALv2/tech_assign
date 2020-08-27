@@ -9,10 +9,10 @@ function myCalc() {
     buzz: Number(rawBuzz),
   }
   
-  const checkIfInteger = (rawFizz && rawBuzz) &&  //check if input is empty.
+  const isInteger = (rawFizz && rawBuzz) &&  //check if input is empty.
     Number.isInteger(inputNumbers.fizz) && Number.isInteger(inputNumbers.buzz); //check if input is integer.
 
-  if (checkIfInteger) {
+  if (isInteger) {
     let i = Math.min(inputNumbers.fizz, inputNumbers.buzz);      
     for (i; i < 100; i++) {
       if (i % inputNumbers.fizz === 0 && i % inputNumbers.buzz === 0) {
