@@ -1,4 +1,9 @@
-function myCalc() {
+document.querySelector("#fizzBuzzForm").addEventListener("submit", myCalc);
+
+function myCalc(event) {
+  removePreviousResult();
+  event.preventDefault();
+
   const rawValues = document.querySelector("#fizzBuzzForm").elements;
   
   const rawFizz = rawValues[0].value;
@@ -16,22 +21,29 @@ function myCalc() {
     let i = Math.min(inputNumbers.fizz, inputNumbers.buzz);      
     for (i; i < 100; i++) {
       if (i % inputNumbers.fizz === 0 && i % inputNumbers.buzz === 0) {
-        showResult("fizzAndBuzz", i);
+        createElemntsToshowResult("fizzAndBuzz", i);
       } else if (i % inputNumbers.fizz === 0){
-        showResult("fizz", i);
+        createElemntsToshowResult("fizz", i);
       } else if (i % inputNumbers.buzz === 0){
-        showResult("buzz", i);
+        createElemntsToshowResult("buzz", i);
       }
     }
   } else {
-    showResult("整数値を入力してください。", "");
+    createElemntsToshowResult("整数値を入力してください。", "");
   }
 }
 
-// create elements to show result.
-function showResult(result, num) {
+
+function createElemntsToshowResult(result, num) {
   let node = document.createElement("P"); 
   let content = document.createTextNode(`${result} ${num}`);
   node.appendChild(content);
   document.querySelector(".result").appendChild(node);
+}
+
+function removePreviousResult() {
+  const node = document.querySelector(".result");
+  while (node.hasChildNodes()) {
+    node.removeChild(node.lastChild);
+  }
 }
