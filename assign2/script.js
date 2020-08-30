@@ -1,10 +1,10 @@
-document.getElementById("click").addEventListener("click", myCalc);
+document.getElementById("calc").addEventListener("click", myCalc);
 
-function myCalc(event) {
+function myCalc() {
   removePreviousResult();
   
-  const rawFizz = getInputValue('fizz');
-  const rawBuzz = getInputValue('buzz');
+  const rawFizz = getInputValue("fizz");
+  const rawBuzz = getInputValue("buzz");
   
   const inputNumber = { 
     fizz: Number(rawFizz),
@@ -15,14 +15,14 @@ function myCalc(event) {
     Number.isInteger(inputNumber.fizz) && Number.isInteger(inputNumber.buzz); //check if input is integer.
 
   if (isInteger) {
-    let i = Math.min(inputNumbers.fizz, inputNumbers.buzz);      
+    let i = Math.min(inputNumber.fizz, inputNumber.buzz);      
     for (i; i < 100; i++) {
-      if (i % inputNumbers.fizz === 0 && i % inputNumbers.buzz === 0) {
-        createElemntsToshowResult("fizzAndBuzz", i);
-      } else if (i % inputNumbers.fizz === 0){
-        createElemntsToshowResult("fizz", i);
-      } else if (i % inputNumbers.buzz === 0){
-        createElemntsToshowResult("buzz", i);
+      if (i % inputNumber.fizz === 0 && i % inputNumber.buzz === 0) {
+        createElemntsToshowResult('fizzAndBuzz', i);
+      } else if (i % inputNumber.fizz === 0){
+        createElemntsToshowResult('fizz', i);
+      } else if (i % inputNumber.buzz === 0){
+        createElemntsToshowResult('buzz', i);
       }
     }
   } else {
@@ -35,7 +35,7 @@ function getInputValue(v){
 }
 
 function createElemntsToshowResult(result, num) {
-  const node = document.createElement("P"); 
+  const node = document.createElement("P");
   const content = document.createTextNode(`${result} ${num}`);
   node.appendChild(content);
   document.querySelector(".result").appendChild(node);
