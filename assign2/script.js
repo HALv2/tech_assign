@@ -1,21 +1,18 @@
-document.querySelector("#fizzBuzzForm").addEventListener("submit", myCalc);
+document.getElementById("click").addEventListener("click", myCalc);
 
 function myCalc(event) {
   removePreviousResult();
-  event.preventDefault();
-
-  const rawValues = document.querySelector("#fizzBuzzForm").elements;
   
-  const rawFizz = rawValues[0].value;
-  const rawBuzz = rawValues[1].value;
+  const rawFizz = getInputValue('fizz');
+  const rawBuzz = getInputValue('buzz');
   
-  const inputNumbers = { 
+  const inputNumber = { 
     fizz: Number(rawFizz),
-    buzz: Number(rawBuzz),
+    buzz: Number(rawBuzz)
   }
   
   const isInteger = (rawFizz && rawBuzz) &&  //check if input is empty.
-    Number.isInteger(inputNumbers.fizz) && Number.isInteger(inputNumbers.buzz); //check if input is integer.
+    Number.isInteger(inputNumber.fizz) && Number.isInteger(inputNumber.buzz); //check if input is integer.
 
   if (isInteger) {
     let i = Math.min(inputNumbers.fizz, inputNumbers.buzz);      
@@ -29,14 +26,17 @@ function myCalc(event) {
       }
     }
   } else {
-    createElemntsToshowResult("整数値を入力してください。", "");
+    createElemntsToshowResult('整数値を入力してください。', '');
   }
 }
 
+function getInputValue(v){
+  return document.getElementById(v).value;
+}
 
 function createElemntsToshowResult(result, num) {
-  let node = document.createElement("P"); 
-  let content = document.createTextNode(`${result} ${num}`);
+  const node = document.createElement("P"); 
+  const content = document.createTextNode(`${result} ${num}`);
   node.appendChild(content);
   document.querySelector(".result").appendChild(node);
 }
