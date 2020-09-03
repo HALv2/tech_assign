@@ -17,13 +17,13 @@ function createTextCell(parent, value) {
   parent.appendChild(childNode);
 }
 
-function createButtonCell(parent, v1, v2) {
+function createButtonCell(parent, buttonId, buttonValue) {
   const childNode = document.createElement("td");
   const cell = document.createElement("input");
   Object.assign(cell, {
     type: "button",
-    id: `${v1}`,
-    value: `${v2}`,
+    id: `${buttonId}`,
+    value: `${buttonValue}`,
   });
   childNode.appendChild(cell);
   parent.appendChild(childNode);
