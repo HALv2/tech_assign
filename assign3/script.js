@@ -1,12 +1,15 @@
 document.getElementById("submit").addEventListener("click", submitNewTask);
 
 function submitNewTask() {
+  let tasks = [];
   const inputTask = {
     id: parseInt(document.querySelector(".task_list").rows.length - 1),
     comment: document.getElementById("comment").value,
     status: "作業中",
     delete: "削除",
   }
+
+  tasks.push(inputTask);
   createNewTaskElement(inputTask);
 }
 
