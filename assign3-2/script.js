@@ -32,13 +32,13 @@ function createTextCell(parent, value, className) {
   parent.appendChild(childNode);
 }
 
-function createButtonCell(parent, v1, v2) {
+function createButtonCell(parent, buttonId, buttonValue) {
   const childNode = document.createElement("td");
-  childNode.setAttribute("class", `${v1}`);
+  childNode.setAttribute("class", `${buttonId}`);
   const cell = document.createElement("input");
   Object.assign(cell, {
     type: "button",
-    value: `${v2}`
+    value: `${buttonValue}`
   });
   childNode.appendChild(cell);
   parent.appendChild(childNode);
