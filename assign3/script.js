@@ -1,12 +1,15 @@
 document.getElementById("submit").addEventListener("click", submitNewTask);
 
 function submitNewTask() {
+  let tasks = [];
   const inputTask = {
     id: parseInt(document.querySelector(".task_list").rows.length - 1),
     comment: document.getElementById("comment").value,
     status: "作業中",
     delete: "削除",
   }
+
+  tasks.push(inputTask);
   createNewTaskElement(inputTask);
 }
 
@@ -17,13 +20,13 @@ function createTextCell(parent, value) {
   parent.appendChild(childNode);
 }
 
-function createButtonCell(parent, v1, v2) {
+function createButtonCell(parent, buttonId, buttonValue) {
   const childNode = document.createElement("td");
   const cell = document.createElement("input");
   Object.assign(cell, {
     type: "button",
-    id: `${v1}`,
-    value: `${v2}`,
+    id: `${buttonId}`,
+    value: `${buttonValue}`,
   });
   childNode.appendChild(cell);
   parent.appendChild(childNode);
