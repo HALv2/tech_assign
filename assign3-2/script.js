@@ -1,4 +1,5 @@
-let tasks = [];
+const tasks = [];
+
 document.getElementById("submit").addEventListener("click", submitNewTask);
 
 function submitNewTask() {
@@ -27,8 +28,6 @@ function submitNewTask() {
       })
     });
   });
-
-  
 }
 
 function createNewTaskElement(taskArray) {
