@@ -4,25 +4,22 @@ document.getElementById("submit").addEventListener("click", submitNewTask);
 
 function submitNewTask() {
   const inputTask = {
-    id: parseInt(document.querySelector(".task_list").rows.length - 1),
+    id: tasks.length,
     comment: document.getElementById("comment").value,
     status: "作業中",
   }
   tasks.push(inputTask);
   createNewTaskElement(tasks);
   
-  //TODO delete task
   document.querySelectorAll(".delete").forEach((button, index) => {
     button.addEventListener("click", () => {
-      
-      //delete task from array by id and reassign ids
       tasks.splice(index, 1);
       tasks.forEach((task, index) => {
         task.id = index;
       });
 
       event.target.parentNode.parentNode.remove();      
-
+      
       document.querySelectorAll(".task_id").forEach((node, index) => {
         node.innerHTML = `${index}`;
       })
