@@ -26,8 +26,7 @@ function submitNewTask() {
       })
     });
   });
-
-  //TODO  change status
+  
   document.querySelectorAll(".status").forEach((button, index) => {
     button.addEventListener("click", () => {
       const status = tasks[index].status;
