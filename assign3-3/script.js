@@ -42,8 +42,7 @@ function createNewTaskElement(taskArray) {
 function deleteTask(taskArray) {
   document.querySelectorAll(".delete").forEach(button => {
     button.addEventListener("click", () => {
-      //delete task from array by id and reassign ids to tasks array
-      const taskId = event.target.parentNode.parentNode.querySelector(".task_id").innerHTML;
+      const taskId = event.target.parentNode.parentNode.querySelector(".task_id").innerText;
       taskArray.splice(taskId, 1);
       taskArray.forEach((task, index) => {
         task.id = index;
@@ -51,7 +50,7 @@ function deleteTask(taskArray) {
       
       event.target.parentNode.parentNode.remove();      
       document.querySelectorAll(".task_id").forEach((node, index) => {
-        node.innerHTML = index;
+        node.innerText = index;
       })
     });
   });
@@ -60,7 +59,7 @@ function deleteTask(taskArray) {
 function changeStatus(taskArray) {
   document.querySelectorAll(".status").forEach((button) => {
     button.addEventListener("click", () => {
-      const taskId = event.target.parentNode.parentNode.querySelector(".task_id").innerHTML;
+      const taskId = event.target.parentNode.parentNode.querySelector(".task_id").innerText;
       const taskStatus = taskArray[taskId].status;
 
       if (taskStatus === '作業中') {
