@@ -46,31 +46,30 @@ function deleteTask(taskArray) {
       const taskId = event.target.parentNode.parentNode.querySelector(".task_id").innerHTML;
       taskArray.splice(taskId, 1);
       taskArray.forEach((task, index) => {
-        task.id = `${index}`;
+        task.id = index;
       });
       
       event.target.parentNode.parentNode.remove();      
       document.querySelectorAll(".task_id").forEach((node, index) => {
-        node.innerHTML = `${index}`;
+        node.innerHTML = index;
       })
     });
   });
-  changeStatus(taskArray);
 }
 
 function changeStatus(taskArray) {
-  document.querySelectorAll(".status").forEach((button, index) => {
+  document.querySelectorAll(".status").forEach((button) => {
     button.addEventListener("click", () => {
-      const status = taskArray[index].status;
+      const taskId = event.target.parentNode.parentNode.querySelector(".task_id").innerHTML;
+      const taskStatus = taskArray[taskId].status;
 
-      if (status === '作業中') {
+      if (taskStatus === '作業中') {
         button.innerHTML = "<button>完了</button>";
-        taskArray[index].status = '完了';
-      } else if (status === "完了") {
+        taskArray[taskId].status = '完了';
+      } else if (taskStatus === '完了') {
         button.innerHTML = "<button>作業中</button>";
-        taskArray[index].status = '作業中'
+        taskArray[taskId].status = '作業中';
       }
     })
   })
-  deleteTask(taskArray);
 }
