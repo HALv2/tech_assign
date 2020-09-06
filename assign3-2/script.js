@@ -8,12 +8,15 @@ function submitNewTask() {
     comment: document.getElementById("comment").value,
     status: "作業中",
   }
+
   tasks.push(inputTask);
   createNewTaskElement(tasks);
+  document.getElementById("comment").value = "";
   
-  document.querySelectorAll(".delete").forEach((button, index) => {
+  document.querySelectorAll(".delete").forEach((button) => {
     button.addEventListener("click", () => {
-      tasks.splice(index, 1);
+      const taskId =  event.target.parentNode.parentNode.querySelector(".task_id").innerText;
+      tasks.splice(taskId, 1);
       tasks.forEach((task, index) => {
         task.id = index;
       });
@@ -21,7 +24,7 @@ function submitNewTask() {
       event.target.parentNode.parentNode.remove();      
       
       document.querySelectorAll(".task_id").forEach((node, index) => {
-        node.innerHTML = `${index}`;
+        node.innerHTML = index;
       })
     });
   });
