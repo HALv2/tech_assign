@@ -10,6 +10,7 @@ function submitNewTask() {
   }
   tasks.push(inputTask);
   createNewTaskElement(tasks);
+  document.getElementById("comment").value = "";
   deleteTask(tasks);
   changeStatus(tasks);
 }
