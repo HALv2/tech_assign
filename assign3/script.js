@@ -70,10 +70,10 @@ function changeStatus(taskArray) {
       const taskStatus = taskArray[taskId].status;
 
       if (taskStatus === STATUS[0]) {
-        button.innerHTML = "<button>完了</button>";
+        button.innerHTML = `<button>${STATUS[1]}</button>`;
         taskArray[taskId].status = STATUS[1];
       } else if (taskStatus === STATUS[1]) {
-        button.innerHTML = "<button>作業中</button>";
+        button.innerHTML = `<button>${STATUS[0]}</button>`;
         taskArray[taskId].status = STATUS[0];
       }
     })
