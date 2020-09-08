@@ -1,45 +1,75 @@
+const tasks = [];
+
 document.getElementById("submit").addEventListener("click", submitNewTask);
 
 function submitNewTask() {
-  let tasks = [];
   const inputTask = {
-    id: parseInt(document.querySelector(".task_list").rows.length - 1),
+    id: tasks.length,
     comment: document.getElementById("comment").value,
-    status: "作業中",
-    delete: "削除",
+    status: '作業中',
   }
-
   tasks.push(inputTask);
-  createNewTaskElement(inputTask);
+  createNewTaskElement(tasks);
+  document.getElementById("comment").value = "";
+  deleteTask(tasks);
+  changeStatus(tasks);
 }
 
-function createTextCell(parent, value) {
-  const childNode = document.createElement("td");
-  const cell = document.createTextNode(`${value}`);
-  childNode.appendChild(cell);
-  parent.appendChild(childNode);
+function createNewTaskElement(taskArray) {
+  const parentNode = document.getElementById("list");
+  parentNode.innerHTML = 
+  `
+  ${taskArray.map(task => {
+    return `
+      <tr>
+        <td class="task_id">
+          ${task.id}
+        </td>
+        <td class="comment">
+          ${task.comment}
+        </td>
+        <td class="status">
+          <button>${task.status}</button>
+        </td>
+        <td class="delete">
+          <button>削除</button>
+        </td>
+      </tr>
+    `
+  }).join('')}
+  `;
 }
 
-function createButtonCell(parent, buttonId, buttonValue) {
-  const childNode = document.createElement("td");
-  const cell = document.createElement("input");
-  Object.assign(cell, {
-    type: "button",
-    id: `${buttonId}`,
-    value: `${buttonValue}`,
+function deleteTask(taskArray) {
+  document.querySelectorAll(".delete").forEach(button => {
+    button.addEventListener("click", () => {
+      const taskId = event.target.parentNode.parentNode.querySelector(".task_id").innerText;
+      taskArray.splice(taskId, 1);
+      taskArray.forEach((task, index) => {
+        task.id = index;
+      });
+      
+      event.target.parentNode.parentNode.remove();      
+      document.querySelectorAll(".task_id").forEach((node, index) => {
+        node.innerText = index;
+      })
+    });
   });
-  childNode.appendChild(cell);
-  parent.appendChild(childNode);
 }
 
-function createNewTaskElement(object) {
-  const parentNode = document.createElement("tr");
-  
-  createTextCell(parentNode, object.id);
-  createTextCell(parentNode, object.comment);
-  
-  createButtonCell(parentNode, "status", object.status);
-  createButtonCell(parentNode, "delete", object.delete);
+function changeStatus(taskArray) {
+  document.querySelectorAll(".status").forEach((button) => {
+    button.addEventListener("click", () => {
+      const taskId = event.target.parentNode.parentNode.querySelector(".task_id").innerText;
+      const taskStatus = taskArray[taskId].status;
 
-  document.querySelector(".task_list").appendChild(parentNode);
+      if (taskStatus === '作業中') {
+        button.innerHTML = "<button>完了</button>";
+        taskArray[taskId].status = '完了';
+      } else if (taskStatus === '完了') {
+        button.innerHTML = "<button>作業中</button>";
+        taskArray[taskId].status = '作業中';
+      }
+    })
+  })
 }
