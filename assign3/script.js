@@ -1,45 +1,61 @@
+const tasks = [];
+
 document.getElementById("submit").addEventListener("click", submitNewTask);
 
 function submitNewTask() {
-  let tasks = [];
   const inputTask = {
-    id: parseInt(document.querySelector(".task_list").rows.length - 1),
+    id: tasks.length,
     comment: document.getElementById("comment").value,
     status: "作業中",
-    delete: "削除",
   }
 
   tasks.push(inputTask);
-  createNewTaskElement(inputTask);
-}
+  createNewTaskElement(tasks);
+  document.getElementById("comment").value = "";
+  
+  document.querySelectorAll(".delete").forEach((button) => {
+    button.addEventListener("click", () => {
+      const taskId =  event.target.parentNode.parentNode.querySelector(".task_id").innerText;
+      tasks.splice(taskId, 1);
+      tasks.forEach((task, index) => {
+        task.id = index;
+      });
 
-function createTextCell(parent, value) {
-  const childNode = document.createElement("td");
-  const cell = document.createTextNode(`${value}`);
-  childNode.appendChild(cell);
-  parent.appendChild(childNode);
-}
-
-function createButtonCell(parent, buttonId, buttonValue) {
-  const childNode = document.createElement("td");
-  const cell = document.createElement("input");
-  Object.assign(cell, {
-    type: "button",
-    id: `${buttonId}`,
-    value: `${buttonValue}`,
+      event.target.parentNode.parentNode.remove();      
+      
+      document.querySelectorAll(".task_id").forEach((node, index) => {
+        node.innerHTML = index;
+      })
+    });
   });
-  childNode.appendChild(cell);
-  parent.appendChild(childNode);
 }
 
-function createNewTaskElement(object) {
-  const parentNode = document.createElement("tr");
+function createNewTaskElement(taskArray) {
+  const parentNode = document.querySelector("table");
   
-  createTextCell(parentNode, object.id);
-  createTextCell(parentNode, object.comment);
-  
-  createButtonCell(parentNode, "status", object.status);
-  createButtonCell(parentNode, "delete", object.delete);
-
-  document.querySelector(".task_list").appendChild(parentNode);
+  parentNode.innerHTML = `
+  <tr>
+    <th>ID</th>
+    <th>コメント</th>
+    <th>状態</th>
+  </tr>
+  ${taskArray.map(task => {
+    return `
+      <tr>
+        <td class="task_id">
+          ${task.id}
+        </td>
+        <td class="comment">
+          ${task.comment}
+        </td>
+        <td class="status">
+          <button>${task.status}</button>
+        </td>
+        <td class="delete">
+          <button>削除</button>
+        </td>
+      </tr>
+    `
+  }).join('')}
+  `;
 }
