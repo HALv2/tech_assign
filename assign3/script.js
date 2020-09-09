@@ -17,16 +17,15 @@ function submitNewTask() {
 
 function createNewTaskElement(taskArray) {
   const parentNode = document.getElementById("list");
-  // parentNode.innerHTML =
-  const tmp = document.createElement("tr");
-  const template = `
+  parentNode.innerHTML = `
   ${taskArray.map(task => {
     return `
+    <tr>
         <td class="task_id">
           ${task.id}
         </td>
         <td class="comment">
-          ${task.comment}
+          ${sanitizeHTML(task.comment)}
         </td>
         <td class="status">
           <button>${task.status}</button>
@@ -34,9 +33,16 @@ function createNewTaskElement(taskArray) {
         <td class="delete">
           <button>削除</button>
         </td>
-    `
+    </tr>`
   }).join('')}
   `;
+
+  function sanitizeHTML (inputValue) {
+    const tempDiv = document.createElement("div");
+    tempDiv.textContent = inputValue;
+    return tempDiv.innerHTML;
+  }
+
 }
 
 function deleteTask(taskArray) {
@@ -54,34 +60,4 @@ function deleteTask(taskArray) {
       })
     });
   });
-}
-
-function createNewTaskElement(taskArray) {
-  const parentNode = document.querySelector("table");
-  
-  parentNode.innerHTML = `
-  <tr>
-    <th>ID</th>
-    <th>コメント</th>
-    <th>状態</th>
-  </tr>
-  ${taskArray.map(task => {
-    return `
-      <tr>
-        <td class="task_id">
-          ${task.id}
-        </td>
-        <td class="comment">
-          ${task.comment}
-        </td>
-        <td class="status">
-          <button>${task.status}</button>
-        </td>
-        <td class="delete">
-          <button>削除</button>
-        </td>
-      </tr>
-    `
-  }).join('')}
-  `;
 }
