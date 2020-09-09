@@ -17,11 +17,11 @@ function submitNewTask() {
 
 function createNewTaskElement(taskArray) {
   const parentNode = document.getElementById("list");
-  parentNode.innerHTML = 
-  `
+  // parentNode.innerHTML =
+  const tmp = document.createElement("tr");
+  const template = `
   ${taskArray.map(task => {
     return `
-      <tr>
         <td class="task_id">
           ${task.id}
         </td>
@@ -34,7 +34,6 @@ function createNewTaskElement(taskArray) {
         <td class="delete">
           <button>削除</button>
         </td>
-      </tr>
     `
   }).join('')}
   `;
