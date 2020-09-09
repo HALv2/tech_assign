@@ -56,19 +56,32 @@ function deleteTask(taskArray) {
   });
 }
 
-function changeStatus(taskArray) {
-  document.querySelectorAll(".status").forEach((button) => {
-    button.addEventListener("click", () => {
-      const taskId = event.target.parentNode.parentNode.querySelector(".task_id").innerText;
-      const taskStatus = taskArray[taskId].status;
-
-      if (taskStatus === '作業中') {
-        button.innerHTML = "<button>完了</button>";
-        taskArray[taskId].status = '完了';
-      } else if (taskStatus === '完了') {
-        button.innerHTML = "<button>作業中</button>";
-        taskArray[taskId].status = '作業中';
-      }
-    })
-  })
+function createNewTaskElement(taskArray) {
+  const parentNode = document.querySelector("table");
+  
+  parentNode.innerHTML = `
+  <tr>
+    <th>ID</th>
+    <th>コメント</th>
+    <th>状態</th>
+  </tr>
+  ${taskArray.map(task => {
+    return `
+      <tr>
+        <td class="task_id">
+          ${task.id}
+        </td>
+        <td class="comment">
+          ${task.comment}
+        </td>
+        <td class="status">
+          <button>${task.status}</button>
+        </td>
+        <td class="delete">
+          <button>削除</button>
+        </td>
+      </tr>
+    `
+  }).join('')}
+  `;
 }
