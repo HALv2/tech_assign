@@ -9,7 +9,7 @@ function submitNewTask() {
     status: STATUS[0],
   }
   tasks.push(inputTask);
-  renderTasks(tasks);
+  renderTasksByStatus(tasks);
   document.getElementById("comment").value = "";
   deleteTask(tasks);
   changeStatus(tasks);
@@ -23,16 +23,15 @@ function submitNewTask() {
 
 function renderTasks(taskArray) {
   const parentNode = document.getElementById("list");
-  parentNode.innerHTML = 
-  `
+  parentNode.innerHTML = `
   ${taskArray.map(task => {
     return `
-      <tr>
+    <tr>
         <td class="task_id">
           ${task.id}
         </td>
         <td class="comment">
-          ${task.comment}
+          ${sanitizeHTML(task.comment)}
         </td>
         <td class="status">
           <button>${task.status}</button>
@@ -40,10 +39,15 @@ function renderTasks(taskArray) {
         <td class="delete">
           <button>削除</button>
         </td>
-      </tr>
-    `
+    </tr>`
   }).join('')}
   `;
+}
+
+function sanitizeHTML (inputValue) {
+  const tempDiv = document.createElement("div");
+  tempDiv.textContent = inputValue;
+  return tempDiv.innerHTML;
 }
 
 function deleteTask(taskArray) {
