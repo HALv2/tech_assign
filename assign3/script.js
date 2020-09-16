@@ -1,6 +1,5 @@
 const tasks = [];
 const STATUS = ['作業中', '完了'];
-
 document.getElementById("submit").addEventListener("click", submitNewTask);
 
 function submitNewTask() {
@@ -10,13 +9,19 @@ function submitNewTask() {
     status: STATUS[0],
   }
   tasks.push(inputTask);
-  createNewTaskElement(tasks);
+  renderTasksByStatus(tasks);
   document.getElementById("comment").value = "";
   deleteTask(tasks);
   changeStatus(tasks);
+
+  document.querySelector(".button_list").addEventListener("click", () =>{
+    renderTasksByStatus(tasks);
+    deleteTask(tasks);
+    changeStatus(tasks);
+  })
 }
 
-function createNewTaskElement(taskArray) {
+function renderTasks(taskArray) {
   const parentNode = document.getElementById("list");
   parentNode.innerHTML = `
   ${taskArray.map(task => {
@@ -75,6 +80,19 @@ function changeStatus(taskArray) {
         button.innerHTML = `<button>${STATUS[0]}</button>`;
         taskArray[taskId].status = STATUS[0];
       }
-    });
-  });
+    })
+  })
 }
+
+function renderTasksByStatus(tasks) {;
+    if (document.getElementById("select_all").checked) {
+      renderTasks(tasks);
+    } else if (document.getElementById("select_doing").checked) {
+      const doingTasks = tasks.filter( task => task.status === STATUS[0]);
+      renderTasks(doingTasks);
+    } else if (document.getElementById("select_done").checked) {
+      const doneTasks = tasks.filter( task => task.status === STATUS[1]);
+      renderTasks(doneTasks);
+    }
+}
+
